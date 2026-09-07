@@ -1,4 +1,6 @@
-numpy
+fastapi
+uvicorn
+pydantic
+joblib
 pandas
-scikit-learn
-xgboostgit
+scikit-learn==1.7.2
