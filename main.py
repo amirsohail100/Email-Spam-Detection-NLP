@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
 from joblib import load
-from fun import remove_num, remove_emoj, remove_other, remove_punc
+from utils.fun import remove_num, remove_emoj, remove_other, remove_punc
+from schemas.payload import Text
 
 app = FastAPI()
 
@@ -14,16 +14,8 @@ app.add_middleware(
 )
 
 # Models load karna
-model = load('spam_model.pkl')
-vectorizer = load('vectorizer.pkl')
-
-class Text(BaseModel):
-    text: str = Field(
-        ...,
-        max_length=1000,
-        min_length=1,
-        description="Text to be classified"
-    )
+model = load('models/spam_model.pkl')
+vectorizer = load('models/vectorizer.pkl')
 
 @app.get("/")
 def read_root():
